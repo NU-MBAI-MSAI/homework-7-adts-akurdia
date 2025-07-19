@@ -46,9 +46,32 @@ class BST:
                 tree.insert(node)
         return tree
 
+    def traverse_pre(self):
+        def traverse_pre_helper(node):
+            if node is None:
+                return []
+            result = [node.val]
+            result.extend(traverse_pre_helper(node.left))
+            result.extend(traverse_pre_helper(node.right))
+            return result
+        
+        return traverse_pre_helper(self.root)
+
+    def traverse_post(self):
+        def traverse_post_helper(node):
+            if node is None:
+                return []
+            result = []
+            result.extend(traverse_post_helper(node.left))
+            result.extend(traverse_post_helper(node.right))
+            result.append(node.val)
+            return result
+        
+        return traverse_post_helper(self.root)
+
 
 if __name__ == '__main__':
     nodes = [25, 20, 30, 29, 35, 15, 22]
     tree = BST.create(nodes)
-    # print(tree.traverse_pre()) # -> This should return the list [25, 20, 15, 22, 30, 29, 35]
-    # print(tree.traverse_post()) # -> This should return the list [15, 22, 20, 29, 35, 30, 25]
+    print(tree.traverse_pre()) # -> This should return the list [25, 20, 15, 22, 30, 29, 35]
+    print(tree.traverse_post()) # -> This should return the list [15, 22, 20, 29, 35, 30, 25]
